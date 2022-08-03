@@ -7,17 +7,17 @@ enum Gender { Male, Female, ThirdGender }
 
 // ignore: must_be_immutable
 class GenderSelection extends StatefulWidget {
-  Gender selectedGender;
+  Gender? selectedGender;
   final LinearGradient linearGradient;
   final ImageProvider maleImage;
   final ImageProvider femaleImage;
   final ImageProvider thirdGenderImage;
-  final ValueChanged<Gender> onChanged;
+  final ValueChanged<Gender?>? onChanged;
   final String maleText;
   final bool equallyAligned;
   final String femaleText;
   final String thirdGenderText;
-  final IconData selectedGenderCheckIcon;
+  final IconData? selectedGenderCheckIcon;
   final double size;
   final bool isCircular;
   final EdgeInsetsGeometry padding;
@@ -33,7 +33,7 @@ class GenderSelection extends StatefulWidget {
   final bool enableThirdGender;
 
   GenderSelection({
-    Key key,
+    Key? key,
     this.selectedGenderTextStyle = const TextStyle(
       fontSize: 19,
       color: Colors.redAccent,
@@ -57,11 +57,14 @@ class GenderSelection extends StatefulWidget {
     this.equallyAligned = true,
     this.selectedGender,
     this.checkIconAlignment = Alignment.bottomCenter,
-    @required this.onChanged,
+    required this.onChanged,
     this.linearGradient = balbirGradient,
-    this.maleImage = const AssetImage("assets/images/boy.png", package: 'gender_selection'),
-    this.femaleImage = const AssetImage("assets/images/girl.png", package: 'gender_selection'),
-    this.thirdGenderImage = const AssetImage("assets/images/third_gender.png", package: 'gender_selection'),
+    this.maleImage =
+        const AssetImage("assets/images/boy.png", package: 'gender_selection'),
+    this.femaleImage =
+        const AssetImage("assets/images/girl.png", package: 'gender_selection'),
+    this.thirdGenderImage = const AssetImage("assets/images/third_gender.png",
+        package: 'gender_selection'),
     this.maleText = "Male",
     this.femaleText = "Female",
     this.thirdGenderText = "Third Gender",
@@ -82,7 +85,9 @@ class _GenderSelectionState extends State<GenderSelection> {
           width: MediaQuery.of(context).size.width,
           child: Row(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: widget.equallyAligned ? MainAxisAlignment.spaceEvenly : MainAxisAlignment.center,
+            mainAxisAlignment: widget.equallyAligned
+                ? MainAxisAlignment.spaceEvenly
+                : MainAxisAlignment.center,
             children: <Widget>[
               _genderBuilder(Gender.Male),
               _genderBuilder(Gender.Female),
@@ -94,13 +99,13 @@ class _GenderSelectionState extends State<GenderSelection> {
     );
   }
 
-  Widget _genderBuilder(Gender _gender) {
+  Widget _genderBuilder(Gender? _gender) {
     return GestureDetector(
       onTap: () {
         setState(() {
           widget.selectedGender = _gender;
           if (widget.onChanged != null) {
-            widget.onChanged(widget.selectedGender);
+            widget.onChanged!(widget.selectedGender);
           } else {
             return;
           }
@@ -119,20 +124,25 @@ class _GenderSelectionState extends State<GenderSelection> {
                 width: widget.size,
                 margin: const EdgeInsets.only(top: 20, bottom: 10),
                 decoration: BoxDecoration(
-                  shape: widget.isCircular ? BoxShape.circle : BoxShape.rectangle,
+                  shape:
+                      widget.isCircular ? BoxShape.circle : BoxShape.rectangle,
                   image: DecorationImage(
-                    image: _getGenderImage(_gender),
+                    image: _getGenderImage(_gender!),
                     fit: BoxFit.cover,
                   ),
                 ),
                 child: AnimatedOpacity(
-                  opacity: widget.selectedGender == _gender ? widget.opacityOfGradient : 0.0,
+                  opacity: widget.selectedGender == _gender
+                      ? widget.opacityOfGradient
+                      : 0.0,
                   duration: widget.animationDuration,
                   child: widget.selectedGender == _gender
                       ? Container(
                           decoration: BoxDecoration(
                               gradient: widget.linearGradient,
-                              shape: widget.isCircular ? BoxShape.circle : BoxShape.rectangle),
+                              shape: widget.isCircular
+                                  ? BoxShape.circle
+                                  : BoxShape.rectangle),
                         )
                       : null,
                 ),
@@ -141,12 +151,18 @@ class _GenderSelectionState extends State<GenderSelection> {
                 child: widget.selectedGenderCheckIcon != null
                     ? AnimatedContainer(
                         duration: widget.animationDuration,
-                        height: widget.selectedGender == _gender ? widget.selectedGenderIconSize : 0.0,
-                        width: widget.selectedGender == _gender ? widget.selectedGenderIconSize : 0.0,
+                        height: widget.selectedGender == _gender
+                            ? widget.selectedGenderIconSize
+                            : 0.0,
+                        width: widget.selectedGender == _gender
+                            ? widget.selectedGenderIconSize
+                            : 0.0,
                         padding: const EdgeInsets.all(1),
                         curve: Curves.fastLinearToSlowEaseIn,
                         decoration: BoxDecoration(
-                            shape: widget.isSelectedGenderIconCircular ? BoxShape.circle : BoxShape.rectangle,
+                            shape: widget.isSelectedGenderIconCircular
+                                ? BoxShape.circle
+                                : BoxShape.rectangle,
                             color: widget.selectedGenderIconBackgroundColor),
                         child: widget.selectedGender == _gender
                             ? LayoutBuilder(
@@ -167,8 +183,9 @@ class _GenderSelectionState extends State<GenderSelection> {
             ],
           ),
           Text(_getGenderText(_gender),
-              style:
-                  widget.selectedGender == _gender ? widget.selectedGenderTextStyle : widget.unSelectedGenderTextStyle)
+              style: widget.selectedGender == _gender
+                  ? widget.selectedGenderTextStyle
+                  : widget.unSelectedGenderTextStyle)
         ],
       ),
     );

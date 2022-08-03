@@ -1,11 +1,10 @@
 name: gender_selection
 description: A Flutter package for gender selection. It is an aweome gender selection widget with cool gradients and animation effects
 version: 1.1.0
-author: Rohan Malik <rohan@404shades.co>
-homepage: https://github.com/404shades/Gender-Selection-Flutter
+homepage: https://github.com/grandnexus/gender-selection-flutter
 
 environment:
-  sdk: ">=2.3.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -20,9 +19,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
   # To add assets to your package, add an assets section, like this:
-   assets:
+  assets:
     - packages/gender_selection/assets/images/boy.png
     - packages/gender_selection/assets/images/girl.png
   #

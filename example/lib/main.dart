@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:example/utils/gradients.dart';
-import 'package:gender_selection/gender_selection.dart'
-
+import 'package:gender_selection/gender_selection.dart';
 
 void main() => runApp(MyApp());
 
@@ -34,22 +33,28 @@ class HomeScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 GenderSelection(
+                  onChanged: (Gender? gender) {
+                    print(gender);
+                  },
                   femaleImage: NetworkImage(
                       "https://cdn1.iconfinder.com/data/icons/website-internet/48/website_-_female_user-512.png"),
-                  maleImage: NetworkImage("https://icon-library.net/images/avatar-icon/avatar-icon-4.jpg"),
+                  maleImage: NetworkImage(
+                      "http://icon-library.net/images/avatar-icon/avatar-icon-4.jpg"),
                   selectedGenderIconBackgroundColor: Colors.amber,
-                  selectedGenderTextStyle: TextStyle(color: Colors.amber, fontSize: 19, fontWeight: FontWeight.bold),
+                  selectedGenderTextStyle: TextStyle(
+                      color: Colors.amber,
+                      fontSize: 19,
+                      fontWeight: FontWeight.bold),
                 ),
                 GenderSelection(
+                  onChanged: (Gender? gender) {
+                    print(gender);
+                  },
                   maleText: "",
                   femaleText: "",
                   linearGradient: pinkRedGradient,
                   selectedGenderIconBackgroundColor: Colors.indigo,
                   checkIconAlignment: Alignment.centerRight,
-                  selectedGenderCheckIcon: null,
-                  onChanged: (Gender gender) {
-                    print(gender);
-                  },
                   equallyAligned: true,
                   animationDuration: Duration(milliseconds: 400),
                   isCircular: true,
@@ -61,12 +66,13 @@ class HomeScreen extends StatelessWidget {
                 GenderSelection(
                   maleImage: AssetImage("assets/images/male.png"),
                   femaleImage: AssetImage("assets/images/female.png"),
-                  thirdGenderImage: AssetImage("assets/images/third_gender.png"),
+                  thirdGenderImage:
+                      AssetImage("assets/images/third_gender.png"),
                   enableThirdGender: true,
                   selectedGenderIconBackgroundColor: Colors.green,
                   selectedGenderIconColor: Colors.white,
                   linearGradient: greenSexyGradient,
-                  onChanged: (Gender gender) {
+                  onChanged: (Gender? gender) {
                     print(gender);
                   },
                 ),
@@ -74,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                   isCircular: false,
                   selectedGenderIconBackgroundColor: Colors.indigo,
                   linearGradient: skyBlueGradient,
-                  onChanged: (Gender gender) {
+                  onChanged: (Gender? gender) {
                     print(gender);
                   },
                 ),
